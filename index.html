@@ -1,0 +1,677 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<script>document.documentElement.classList.add("js");</script>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Trendline Aviation | Reliability Analytics &amp; CASS Support</title>
+<meta name="description" content="Dedicated reliability analysts and CASS support for Part 121 and Part 135 operators.">
+<meta name="theme-color" content="#1E4FA3">
+<link rel="canonical" href="https://trendlineaviation.com/">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://trendlineaviation.com/">
+<meta property="og:title" content="Trendline Aviation | Reliability Analytics &amp; CASS Support">
+<meta property="og:description" content="Dedicated reliability analysts and CASS support for Part 121 and Part 135 operators.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%231E4FA3'/%3E%3Cpath d='M18 20h28M32 20v24' stroke='%23fff' stroke-width='6'/%3E%3Cpath d='M16 52h32' stroke='%23fff' stroke-opacity='.7' stroke-width='2.5'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Montserrat:wght@600&display=swap">
+<style>
+  :root {
+    --blue: #1E4FA3;
+    --blue-hover: #173F85;
+    --blue-tint: #EDF2FA;
+    --navy: #0B1F3F;
+    --ink: #0E1726;
+    --text: #465266;
+    --muted: #6A7486;
+    --line: #E4E9F1;
+    --soft: #F6F8FB;
+    --white: #FFFFFF;
+    --on-navy: #C5D2E8;
+    --font: 'Manrope', system-ui, -apple-system, 'Segoe UI', sans-serif;
+    --pad: clamp(20px, 6vw, 96px);
+    --ease: cubic-bezier(.22, .8, .24, 1);
+  }
+  *, *::before, *::after { box-sizing: border-box; }
+  html { scroll-behavior: smooth; scroll-padding-top: 88px; }
+  body { margin: 0; font-family: var(--font); color: var(--ink); background: var(--white); font-size: 16px; line-height: 1.6; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+  a { color: inherit; text-decoration: none; }
+  button { font: inherit; }
+  :focus-visible { outline: 2px solid var(--blue); outline-offset: 3px; border-radius: 6px; }
+  .wrap { max-width: 1280px; margin: 0 auto; padding-left: max(var(--pad), env(safe-area-inset-left)); padding-right: max(var(--pad), env(safe-area-inset-right)); }
+  h1, h2, h3 { margin: 0; font-weight: 600; letter-spacing: -0.025em; color: var(--ink); }
+  p { margin: 0; }
+  .label { font-size: 14px; font-weight: 600; color: var(--blue); margin-bottom: 16px; display: block; }
+  .section { padding: clamp(72px, 10vw, 128px) 0; }
+  .section-head { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 32px 64px; align-items: end; margin-bottom: clamp(40px, 6vw, 64px); }
+  .section-head h2 { font-size: clamp(30px, 3.6vw, 46px); line-height: 1.12; max-width: 18ch; }
+  .section-head p { color: var(--text); font-size: 17px; max-width: 46ch; justify-self: end; }
+
+  /* Progress bar */
+  .progress { position: fixed; inset: 0 0 auto 0; height: 2px; background: var(--blue); transform: scaleX(0); transform-origin: left; z-index: 60; pointer-events: none; }
+
+  /* Header */
+  .header { position: sticky; top: 0; z-index: 50; background: rgba(255,255,255,0); border-bottom: 1px solid transparent; transition: background-color .3s var(--ease), border-color .3s var(--ease), transform .4s var(--ease); padding-top: env(safe-area-inset-top); }
+  .header.scrolled { background: rgba(255,255,255,.88); backdrop-filter: saturate(160%) blur(14px); -webkit-backdrop-filter: saturate(160%) blur(14px); border-bottom-color: var(--line); }
+  .header.hidden { transform: translateY(-100%); }
+  .header .wrap { display: flex; align-items: center; justify-content: space-between; height: 76px; }
+  .logo { display: block; line-height: 0; border-radius: 10px; position: relative; z-index: 70; }
+  .logo svg { width: 176px; height: auto; display: block; }
+  .nav { position: relative; display: flex; align-items: center; gap: 4px; }
+  .nav-links { position: relative; display: flex; gap: 4px; }
+  .nav-links a { position: relative; padding: 8px 14px; font-size: 15px; font-weight: 500; color: var(--text); border-radius: 8px; transition: color .2s var(--ease); }
+  .nav-links a:hover, .nav-links a.active { color: var(--ink); }
+  .nav-indicator { position: absolute; bottom: 2px; left: 0; height: 2px; width: 0; background: var(--blue); border-radius: 2px; opacity: 0; transition: transform .45s var(--ease), width .45s var(--ease), opacity .3s ease; pointer-events: none; }
+  .btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 48px; padding: 0 24px; border-radius: 999px; font-size: 15px; font-weight: 600; cursor: pointer; border: 1px solid transparent; transition: background-color .25s var(--ease), color .25s var(--ease), border-color .25s var(--ease), transform .2s var(--ease), box-shadow .25s var(--ease); }
+  .btn:active { transform: scale(.98); }
+  .btn-primary { background: var(--blue); color: var(--white); }
+  .btn-primary:hover { background: var(--blue-hover); box-shadow: 0 10px 24px -12px rgba(30,79,163,.6); }
+  .btn-ghost { border-color: var(--line); color: var(--ink); background: var(--white); }
+  .btn-ghost:hover { border-color: var(--ink); }
+  .btn-light { background: var(--white); color: var(--navy); }
+  .btn-light:hover { background: var(--blue-tint); }
+  .btn-outline-light { border-color: rgba(255,255,255,.3); color: var(--white); background: transparent; }
+  .btn-outline-light:hover { border-color: var(--white); }
+  .nav .btn { min-height: 42px; padding: 0 20px; margin-left: 12px; }
+  .menu-btn { display: none; width: 44px; height: 44px; border: 1px solid var(--line); border-radius: 999px; background: var(--white); cursor: pointer; align-items: center; justify-content: center; position: relative; z-index: 70; }
+  .menu-btn span { position: absolute; width: 18px; height: 1.5px; background: var(--ink); border-radius: 2px; transition: transform .35s var(--ease), opacity .2s ease; }
+  .menu-btn span:nth-child(1) { transform: translateY(-5px); }
+  .menu-btn span:nth-child(3) { transform: translateY(5px); }
+  .menu-open .menu-btn span:nth-child(1) { transform: rotate(45deg); }
+  .menu-open .menu-btn span:nth-child(2) { opacity: 0; }
+  .menu-open .menu-btn span:nth-child(3) { transform: rotate(-45deg); }
+
+  /* Hero */
+  .hero { position: relative; overflow: hidden; padding: clamp(64px, 9vw, 120px) 0 0; }
+  .hero-inner { max-width: 900px; }
+  .hero h1 { font-size: clamp(40px, 6vw, 80px); line-height: 1.04; letter-spacing: -0.035em; font-weight: 600; }
+  .hero h1 .soft { color: var(--blue); }
+  .hero p { margin-top: 28px; font-size: clamp(17px, 1.5vw, 20px); color: var(--text); max-width: 54ch; }
+  .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 40px; }
+  .hero-line { display: block; width: 100%; height: clamp(120px, 16vw, 200px); margin-top: clamp(40px, 6vw, 72px); }
+  .hero-line .trace { stroke: var(--blue); stroke-width: 2; fill: none; vector-effect: non-scaling-stroke; stroke-linejoin: round; stroke-linecap: round; }
+  .hero-line .base { stroke: var(--line); stroke-width: 1; vector-effect: non-scaling-stroke; }
+  .hero-line .area { fill: url(#heroFill); }
+
+  /* Regulatory */
+  .regs { background: var(--soft); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+  .regs-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0; }
+  .reg { padding: 8px 40px 8px 0; }
+  .reg + .reg { padding-left: 40px; border-left: 1px solid var(--line); }
+  a.reg { display: block; color: inherit; transition: opacity .2s ease; }
+  .reg .src { display: inline-block; margin-top: 14px; font-size: 13px; font-weight: 600; color: var(--blue); border-bottom: 1px solid transparent; transition: border-color .25s var(--ease); }
+  a.reg:hover .src { border-bottom-color: var(--blue); }
+  .reg .ref { display: block; font-size: 22px; font-weight: 600; letter-spacing: -0.02em; color: var(--blue); }
+  .reg p { margin-top: 10px; color: var(--text); font-size: 15px; max-width: 34ch; }
+  .regs-note { margin-top: 32px; font-size: 13px; color: var(--muted); }
+
+  /* Services */
+  .services { border-top: 1px solid var(--line); }
+  .services-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; list-style: none; margin: 0; padding: 0; }
+  .service { position: relative; padding: 32px 32px 36px; border: 1px solid var(--line); border-radius: 18px; background: var(--white); overflow: hidden; transition: border-color .35s var(--ease), transform .35s var(--ease), box-shadow .35s var(--ease); }
+  .service::before { content: ""; position: absolute; left: 0; top: 0; height: 2px; width: 100%; background: var(--blue); transform: scaleX(0); transform-origin: left; transition: transform .5s var(--ease); }
+  .service:hover { border-color: #CFD9EA; transform: translateY(-4px); box-shadow: 0 24px 48px -32px rgba(14,23,38,.35); }
+  .service:hover::before { transform: scaleX(1); }
+  .service .icon { width: 44px; height: 44px; border-radius: 12px; background: var(--blue-tint); color: var(--blue); display: flex; align-items: center; justify-content: center; margin-bottom: 28px; transition: background-color .35s var(--ease), color .35s var(--ease); }
+  .service:hover .icon { background: var(--blue); color: var(--white); }
+  .service h3 { font-size: 20px; letter-spacing: -0.015em; }
+  .service p { margin-top: 10px; color: var(--text); font-size: 15px; }
+
+  /* Audience */
+  .audience { background: var(--white); }
+  .why { background: var(--soft); border-top: 1px solid var(--line); }
+  .audience-list { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--ink); }
+  .audience-list li { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr); gap: 32px; align-items: baseline; padding: 28px 0; border-bottom: 1px solid var(--line); transition: padding-left .4s var(--ease); }
+  .audience-list li:hover { padding-left: 12px; }
+  .audience-list strong { font-size: clamp(20px, 2vw, 26px); font-weight: 600; letter-spacing: -0.02em; transition: color .3s var(--ease); }
+  .audience-list li:hover strong { color: var(--blue); }
+  .audience-list span { color: var(--text); font-size: 16px; }
+
+  /* Why */
+  .why-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 48px; }
+  .why-item { border-top: 1px solid var(--line); padding-top: 28px; position: relative; }
+  .why-item::before { content: ""; position: absolute; top: -1px; left: 0; width: 40px; height: 2px; background: var(--blue); transition: width .6s var(--ease); }
+  .why-item:hover::before { width: 100%; }
+  .why-item h3 { font-size: 20px; }
+  .why-item p { margin-top: 10px; color: var(--text); font-size: 15px; }
+
+  /* Process */
+  .process { background: var(--navy); color: var(--white); }
+  .process .label { color: #8FB0E6; }
+  .process .section-head h2 { color: var(--white); }
+  .process .section-head p { color: var(--on-navy); }
+  .steps { position: relative; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 48px; list-style: none; margin: 0; padding: 48px 0 0; --p: 0; }
+  .steps::before, .steps::after { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 1px; }
+  .steps::before { background: rgba(255,255,255,.18); }
+  .steps::after { background: #8FB0E6; height: 2px; top: -0.5px; transform: scaleX(var(--p)); transform-origin: left; }
+  .step { position: relative; }
+  .step .dot { position: absolute; top: -55px; left: 0; width: 14px; height: 14px; border-radius: 50%; background: var(--navy); border: 2px solid rgba(255,255,255,.35); transition: border-color .4s var(--ease), background-color .4s var(--ease); }
+  .step.lit .dot { border-color: #8FB0E6; background: #8FB0E6; }
+  .step .num { font-size: 14px; font-weight: 600; color: #8FB0E6; }
+  .step h3 { color: var(--white); font-size: 22px; margin-top: 8px; }
+  .step p { margin-top: 10px; color: var(--on-navy); font-size: 15px; max-width: 32ch; }
+
+  /* FAQ */
+  .faq-wrap { display: grid; grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr); gap: 64px; align-items: start; }
+  .faq-wrap .section-head { display: block; margin: 0; position: sticky; top: 120px; }
+  .faq-wrap .section-head p { margin-top: 20px; justify-self: start; }
+  .faq-list { border-top: 1px solid var(--line); }
+  .faq-item { border-bottom: 1px solid var(--line); }
+  .faq-q { width: 100%; display: flex; justify-content: space-between; align-items: center; gap: 24px; padding: 26px 0; background: none; border: 0; text-align: left; cursor: pointer; color: var(--ink); font-size: 18px; font-weight: 600; letter-spacing: -0.01em; transition: color .2s ease; }
+  .faq-q:hover { color: var(--blue); }
+  .faq-icon { position: relative; width: 28px; height: 28px; flex-shrink: 0; border-radius: 50%; border: 1px solid var(--line); transition: background-color .3s var(--ease), border-color .3s var(--ease); }
+  .faq-icon::before, .faq-icon::after { content: ""; position: absolute; top: 50%; left: 50%; width: 10px; height: 1.5px; background: currentColor; transform: translate(-50%, -50%); transition: transform .35s var(--ease), background-color .3s ease; }
+  .faq-icon::after { transform: translate(-50%, -50%) rotate(90deg); }
+  .faq-item.open .faq-icon { background: var(--blue); border-color: var(--blue); color: var(--white); }
+  .faq-item.open .faq-icon::after { transform: translate(-50%, -50%) rotate(0deg); }
+  .faq-a { display: grid; grid-template-rows: 0fr; transition: grid-template-rows .45s var(--ease); }
+  .faq-item.open .faq-a { grid-template-rows: 1fr; }
+  .faq-a > div { overflow: hidden; }
+  .faq-a p { padding: 0 48px 26px 0; color: var(--text); font-size: 16px; }
+
+  /* Contact */
+  .contact { padding-bottom: clamp(72px, 10vw, 128px); }
+  .contact-card { position: relative; overflow: hidden; background: var(--blue); color: var(--white); border-radius: 28px; padding: clamp(40px, 6vw, 80px); display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); gap: 48px; align-items: end; }
+  .contact-card h2 { color: var(--white); font-size: clamp(32px, 4.4vw, 56px); line-height: 1.06; letter-spacing: -0.03em; max-width: 13ch; }
+  .contact-card p { margin-top: 20px; color: #D6E1F4; max-width: 42ch; }
+  .contact-card svg.deco { position: absolute; right: -40px; top: -20px; width: 60%; height: auto; opacity: .18; pointer-events: none; }
+  .contact-side { position: relative; display: flex; flex-direction: column; gap: 16px; }
+  .email-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 14px 14px 14px 20px; border-radius: 999px; background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.2); }
+  .email-row a { font-weight: 600; font-size: 16px; overflow-wrap: anywhere; }
+  .email-row a:hover { text-decoration: underline; text-underline-offset: 4px; }
+  .copy-btn { flex-shrink: 0; width: 40px; height: 40px; padding: 0; display: inline-flex; align-items: center; justify-content: center; border-radius: 999px; border: 0; background: var(--white); color: var(--navy); font-size: 13px; font-weight: 600; cursor: pointer; transition: background-color .2s ease; }
+  .copy-btn:hover { background: var(--blue-tint); }
+  .copy-btn .i-check { display: none; }
+  .copy-btn.done .i-copy { display: none; }
+  .copy-btn.done .i-check { display: block; }
+  .contact-side .btn { width: 100%; }
+
+  /* Footer */
+  .footer { border-top: 1px solid var(--line); padding: 36px 0 calc(36px + env(safe-area-inset-bottom)); }
+  .footer .wrap { display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap; }
+  .footer .logo svg { width: 132px; }
+  .footer-links { display: flex; gap: 24px; font-size: 14px; color: var(--text); }
+  .footer-links a:hover { color: var(--blue); }
+  .footer small { font-size: 13px; color: var(--muted); }
+  .footer .legal { flex-basis: 100%; margin-top: 4px; font-size: 12px; line-height: 1.6; color: var(--muted); max-width: 90ch; }
+
+  /* Toast */
+  .toast { position: fixed; left: 50%; bottom: calc(24px + env(safe-area-inset-bottom)); transform: translate(-50%, 16px); background: var(--ink); color: var(--white); font-size: 14px; font-weight: 500; padding: 12px 20px; border-radius: 999px; opacity: 0; pointer-events: none; transition: opacity .3s var(--ease), transform .3s var(--ease); z-index: 80; }
+  .toast.show { opacity: 1; transform: translate(-50%, 0); }
+
+  /* Motion */
+  .js .reveal { opacity: 0; transform: translateY(20px); transition: opacity .9s var(--ease), transform .9s var(--ease); transition-delay: var(--d, 0s); }
+  .js .reveal.in { opacity: 1; transform: none; }
+  .js .hero-inner > * { opacity: 0; transform: translateY(18px); animation: rise 1s var(--ease) forwards; }
+  .js .hero-inner > *:nth-child(2) { animation-delay: .12s; }
+  .js .hero-inner > *:nth-child(3) { animation-delay: .24s; }
+  @keyframes rise { to { opacity: 1; transform: none; } }
+  .js .hero-line .trace { stroke-dasharray: 1; stroke-dashoffset: 1; animation: draw 2.2s var(--ease) .5s forwards; }
+  .js .hero-line .area { opacity: 0; animation: fade 1.2s ease 1.6s forwards; }
+  .js .hero-line .end { opacity: 0; animation: fade .6s ease 2.4s forwards; }
+  @keyframes draw { to { stroke-dashoffset: 0; } }
+  @keyframes fade { to { opacity: 1; } }
+  .logo .wing { transform-box: fill-box; }
+  .logo .wing-l { transform-origin: right center; }
+  .logo .wing-r { transform-origin: left center; }
+  .js .header .logo .wing { transform: scaleX(0); animation: extend 1s var(--ease) .3s forwards; }
+  @keyframes extend { to { transform: scaleX(1); } }
+
+  /* Responsive */
+  @media (max-width: 1040px) {
+    .nav-links a { padding: 8px 10px; font-size: 14px; }
+    .services-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .why-grid { gap: 32px; }
+  }
+  @media (max-width: 880px) {
+    .menu-btn { display: inline-flex; }
+    .nav { position: fixed; inset: 0; z-index: 65; flex-direction: column; align-items: stretch; justify-content: center; gap: 0; padding: 96px var(--pad) 40px; background: var(--white); visibility: hidden; opacity: 0; transition: opacity .35s var(--ease), visibility 0s linear .35s; }
+    .menu-open .nav { visibility: visible; opacity: 1; transition: opacity .35s var(--ease); }
+    .nav-links { flex-direction: column; gap: 0; }
+    .nav-links a { font-size: 28px; font-weight: 600; letter-spacing: -0.02em; color: var(--ink); padding: 14px 0; border-bottom: 1px solid var(--line); border-radius: 0; opacity: 0; transform: translateY(12px); transition: opacity .4s var(--ease), transform .4s var(--ease), color .2s ease; }
+    .menu-open .nav-links a { opacity: 1; transform: none; }
+    .menu-open .nav-links a:nth-child(2) { transition-delay: .05s; }
+    .menu-open .nav-links a:nth-child(3) { transition-delay: .1s; }
+    .menu-open .nav-links a:nth-child(4) { transition-delay: .15s; }
+    .menu-open .nav-links a:nth-child(5) { transition-delay: .2s; }
+    .nav-indicator { display: none; }
+    .nav .btn { margin: 32px 0 0; min-height: 52px; }
+    .menu-open { overflow: hidden; }
+    .menu-open .header { backdrop-filter: none; -webkit-backdrop-filter: none; background: var(--white); transform: none; }
+    .section-head { grid-template-columns: 1fr; }
+    .section-head p { justify-self: start; }
+    .regs-grid { grid-template-columns: 1fr; }
+    .reg, .reg + .reg { padding: 24px 0; border-left: 0; border-top: 1px solid var(--line); }
+    .reg:first-child { border-top: 0; padding-top: 0; }
+    .audience-list li { grid-template-columns: 1fr; gap: 6px; }
+    .why-grid { grid-template-columns: 1fr; }
+    .steps { grid-template-columns: 1fr; padding: 0 0 0 36px; gap: 40px; }
+    .steps::before, .steps::after { top: 0; bottom: 0; left: 6px; right: auto; width: 1px; height: auto; }
+    .steps::after { width: 2px; left: 5.5px; transform: scaleY(var(--p)); transform-origin: top; }
+    .step .dot { top: 4px; left: -36px; }
+    .faq-wrap { grid-template-columns: 1fr; gap: 32px; }
+    .faq-wrap .section-head { position: static; }
+    .contact-card { grid-template-columns: minmax(0, 1fr); border-radius: 22px; }
+    .contact-card svg.deco { width: 120%; right: -30%; }
+  }
+  @media (max-width: 560px) {
+    .logo svg { width: 150px; }
+    .services-grid { grid-template-columns: 1fr; }
+    .service { padding: 26px; }
+    .hero-actions .btn { flex: 1 1 100%; }
+    .faq-q { font-size: 17px; }
+    .faq-a p { padding-right: 0; }
+    .footer .wrap { flex-direction: column; align-items: flex-start; }
+    .contact-card { padding: 36px 22px 24px; }
+    .email-row { padding: 10px 10px 10px 18px; }
+    .email-row a { font-size: 14.5px; overflow-wrap: normal; min-width: 0; }
+    .contact-card { padding-left: 20px; padding-right: 20px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after { animation-duration: .01ms !important; animation-delay: 0s !important; transition-duration: .01ms !important; transition-delay: 0s !important; }
+    .js .reveal, .js .hero-inner > * { opacity: 1; transform: none; }
+    .js .hero-line .trace { stroke-dashoffset: 0; }
+  }
+  /* Aircraft cursor (mouse / trackpad only) */
+  .plane-cursor, .contrail { display: none; }
+  @media (hover: hover) and (pointer: fine) {
+    .has-plane-cursor, .has-plane-cursor a, .has-plane-cursor button { cursor: none; }
+    .has-plane-cursor .plane-cursor, .has-plane-cursor .contrail { display: block; }
+    .plane-cursor { position: fixed; left: 0; top: 0; z-index: 100; pointer-events: none; will-change: transform; opacity: 0; transition: opacity .2s ease; }
+    .plane-cursor.visible { opacity: 1; }
+    .plane-cursor .body { position: absolute; left: -29px; top: -13px; width: 30px; height: 26px; transition: transform .25s var(--ease); transform-origin: 29px 13px; }
+    .plane-cursor.over-link .body { transform: scale(1.25); }
+    .plane-cursor.pressed .body { transform: scale(.85); }
+    .contrail { position: fixed; inset: 0; z-index: 99; pointer-events: none; }
+  }
+</style>
+</head>
+<body>
+<div class="progress" aria-hidden="true"></div>
+
+<header class="header" id="top">
+  <div class="wrap">
+    <a class="logo" href="#top" aria-label="Trendline Aviation home">
+      <svg viewBox="0 0 1100 250" role="img" aria-label="Trendline Aviation">
+        <defs>
+          <linearGradient id="lnL" x1="0" x2="1"><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#fff" stop-opacity=".85"/></linearGradient>
+          <linearGradient id="lnR" x1="0" x2="1"><stop offset="0" stop-color="#fff" stop-opacity=".85"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>
+        </defs>
+        <rect width="1100" height="250" rx="34" fill="#1E4FA3"/>
+        <text x="564" y="128" text-anchor="middle" font-family="Montserrat, 'Helvetica Neue', Arial, sans-serif" font-weight="600" font-size="96" letter-spacing="28" fill="#FFFFFF">TRENDLINE</text>
+        <polygon class="wing wing-l" points="80,186 290,182 290,190" fill="url(#lnL)"/>
+        <polygon class="wing wing-r" points="840,182 1020,186 840,190" fill="url(#lnR)"/>
+        <text x="566" y="205" text-anchor="middle" font-family="Montserrat, 'Helvetica Neue', Arial, sans-serif" font-weight="600" font-size="50" letter-spacing="30" fill="#FFFFFF" fill-opacity=".9">AVIATION</text>
+      </svg>
+    </a>
+    <button class="menu-btn" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="nav"><span></span><span></span><span></span></button>
+    <nav class="nav" id="nav" aria-label="Main">
+      <div class="nav-links">
+        <a href="#services">Services</a>
+        <a href="#cass">CASS</a>
+        <a href="#who">Who we serve</a>
+        <a href="#process">Process</a>
+        <a href="#faq">FAQ</a>
+        <span class="nav-indicator" aria-hidden="true"></span>
+      </div>
+      <a class="btn btn-primary" href="#contact">Contact us</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="wrap">
+      <div class="hero-inner">
+        <h1>Reliability analytics and CASS support <span class="soft">for aviation operators.</span></h1>
+        <p>Dedicated reliability analysts who work inside your program: trending, analysis and CASS reporting, delivered to your standards.</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#contact">Contact us</a>
+          <a class="btn btn-ghost" href="#services">View services</a>
+        </div>
+      </div>
+    </div>
+    <svg class="hero-line" viewBox="0 0 1000 200" preserveAspectRatio="none" aria-hidden="true">
+      <defs>
+        <linearGradient id="heroFill" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1E4FA3" stop-opacity=".10"/><stop offset="1" stop-color="#1E4FA3" stop-opacity="0"/></linearGradient>
+      </defs>
+      <path class="area" d="M0,40 L90,52 L160,38 L230,66 L300,58 L370,92 L440,84 L510,116 L580,108 L650,138 L720,132 L790,154 L860,150 L930,166 L1000,168 L1000,200 L0,200 Z"/>
+      <line class="base" x1="0" y1="199.5" x2="1000" y2="199.5"/>
+      <path class="trace" pathLength="1" d="M0,40 L90,52 L160,38 L230,66 L300,58 L370,92 L440,84 L510,116 L580,108 L650,138 L720,132 L790,154 L860,150 L930,166 L1000,168"/>
+    </svg>
+  </section>
+
+  <section class="section services" id="services" aria-labelledby="services-title">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div><span class="label">Services</span><h2 id="services-title">What our analysts deliver.</h2></div>
+        <p>From raw maintenance data to the reports and recommendations your reliability program depends on.</p>
+      </div>
+      <ul class="services-grid">
+        <li class="service reveal">
+          <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5"/><path d="M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></svg></div>
+          <h3>Data analysis</h3>
+          <p>Thorough analysis of your maintenance and reliability data, including the data preparation it requires.</p>
+        </li>
+        <li class="service reveal" style="--d:.06s">
+          <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 5l5 5 4-3 5 6 4-2"/><path d="M3 20h18"/></svg></div>
+          <h3>Reliability trending</h3>
+          <p>Track component and system performance over time to help identify adverse trends early.</p>
+        </li>
+        <li class="service reveal" style="--d:.12s">
+          <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg></div>
+          <h3>Performance analysis</h3>
+          <p>Measure fleet and program performance against your alert levels and standards.</p>
+        </li>
+        <li class="service reveal">
+          <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h9l4 4v14H6z"/><path d="M14 3v5h5M9 13h7M9 17h5"/></svg></div>
+          <h3>CASS &amp; reliability reports</h3>
+          <p>Prepare the recurring CASS and reliability reports your program requires.</p>
+        </li>
+        <li class="service reveal" style="--d:.06s">
+          <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4M8 11l2 2 4-4"/></svg></div>
+          <h3>Findings &amp; recommendations</h3>
+          <p>Clear findings, summaries and recommendations your engineering team can act on.</p>
+        </li>
+        <li class="service reveal" style="--d:.12s">
+          <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div>
+          <h3>Ad hoc analyses</h3>
+          <p>Timely answers to one-off reliability and data questions, within the agreed scope.</p>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="section regs" id="cass" aria-labelledby="cass-title">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div><span class="label">CASS support</span><h2 id="cass-title">Support for your CASS program.</h2></div>
+        <p>A Continuing Analysis and Surveillance System (CASS) is an operator's system for continuously analyzing and monitoring the performance and effectiveness of its inspection and maintenance programs, and for correcting any deficiencies in them. We support the analysis and reporting behind CASS programs for Part 121 and Part 135 certificate holders.</p>
+      </div>
+      <div class="regs-grid">
+        <a class="reg reveal" href="https://www.ecfr.gov/current/title-14/chapter-I/subchapter-G/part-121/subpart-L/section-121.373" target="_blank" rel="noopener"><span class="ref">14 CFR 121.373</span><p>The CASS requirement for Part 121 certificate holders.</p><span class="src">Read on eCFR</span></a>
+        <a class="reg reveal" style="--d:.08s" href="https://www.ecfr.gov/current/title-14/chapter-I/subchapter-G/part-135/subpart-J/section-135.431" target="_blank" rel="noopener"><span class="ref">14 CFR 135.431</span><p>The CASS requirement for Part 135 certificate holders whose aircraft are maintained under §135.411(a)(2).</p><span class="src">Read on eCFR</span></a>
+        <a class="reg reveal" style="--d:.16s" href="https://www.faa.gov/regulations_policies/advisory_circulars/index.cfm/go/document.information/documentid/328356" target="_blank" rel="noopener"><span class="ref">AC 120-79A</span><p>FAA guidance on developing and implementing a CASS. Advisory, not regulatory.</p><span class="src">Read on faa.gov</span></a>
+      </div>
+      <p class="regs-note">Each certificate holder remains responsible for its own CASS and regulatory compliance.</p>
+    </div>
+  </section>
+
+  <section class="section audience" id="who" aria-labelledby="who-title">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div><span class="label">Who we serve</span><h2 id="who-title">Made for operators who take reliability seriously.</h2></div>
+        <p>Whether you need to add capacity or strengthen an existing program, we fit alongside your team.</p>
+      </div>
+      <ul class="audience-list reveal">
+        <li><strong>Part 121 operators</strong><span>Ongoing CASS reporting and reliability analysis across your fleet types.</span></li>
+        <li><strong>Part 135 operators</strong><span>CASS support for operators whose aircraft are maintained under §135.411(a)(2).</span></li>
+        <li><strong>Cargo operators</strong><span>CASS and reliability support for Part 121 and Part 135 cargo operations.</span></li>
+        <li><strong>Maintenance &amp; engineering teams</strong><span>Extra analytical capacity when workloads grow or programs change.</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="section why" aria-labelledby="why-title">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div><span class="label">Why Trendline</span><h2 id="why-title">People, not software.</h2></div>
+        <p>We don't sell a platform. We provide analysts who work in the tools and processes you already have.</p>
+      </div>
+      <div class="why-grid">
+        <div class="why-item reveal"><h3>Dedicated analysts</h3><p>Managed by Trendline and focused on your program.</p></div>
+        <div class="why-item reveal" style="--d:.08s"><h3>Your systems, your standards</h3><p>We work with your data and follow your program's requirements.</p></div>
+        <div class="why-item reveal" style="--d:.16s"><h3>Focused on reliability</h3><p>Aviation reliability analytics is what we do.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section process" id="process" aria-labelledby="process-title">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div><span class="label">Process</span><h2 id="process-title">Getting started is simple.</h2></div>
+        <p>Three steps from first conversation to analysts working in your program.</p>
+      </div>
+      <ol class="steps">
+        <li class="step"><span class="dot"></span><span class="num">Step 1</span><h3>Talk to us</h3><p>Tell us about your fleet, your program and where you need support.</p></li>
+        <li class="step"><span class="dot"></span><span class="num">Step 2</span><h3>Agree on scope</h3><p>We define the work, the reports and how we'll fit into your team.</p></li>
+        <li class="step"><span class="dot"></span><span class="num">Step 3</span><h3>Analysts start</h3><p>Your dedicated analysts join your workflow.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="section" id="faq" aria-labelledby="faq-title">
+    <div class="wrap faq-wrap">
+      <div class="section-head reveal">
+        <span class="label">FAQ</span>
+        <h2 id="faq-title">Common questions.</h2>
+        <p>Something else on your mind? Email us and we'll get back to you.</p>
+      </div>
+      <div class="faq-list reveal">
+        <div class="faq-item">
+          <button class="faq-q" type="button" aria-expanded="false" aria-controls="a1" id="q1">Do you provide software?<span class="faq-icon" aria-hidden="true"></span></button>
+          <div class="faq-a" id="a1" role="region" aria-labelledby="q1"><div><p>No. Trendline provides people, not a platform. Our analysts work in your existing systems, with your data and your processes.</p></div></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" type="button" aria-expanded="false" aria-controls="a2" id="q2">Which operators do you support?<span class="faq-icon" aria-hidden="true"></span></button>
+          <div class="faq-a" id="a2" role="region" aria-labelledby="q2"><div><p>Part 121 operators and Part 135 operators required to maintain a CASS, along with maintenance and engineering teams that need added reliability capacity.</p></div></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" type="button" aria-expanded="false" aria-controls="a4" id="q4">Can you take on one-off analyses?<span class="faq-icon" aria-hidden="true"></span></button>
+          <div class="faq-a" id="a4" role="region" aria-labelledby="q4"><div><p>Yes. Reasonable ad hoc reliability and data analyses are part of the service, within the scope we agree on together.</p></div></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" type="button" aria-expanded="false" aria-controls="a5" id="q5">How do we get started?<span class="faq-icon" aria-hidden="true"></span></button>
+          <div class="faq-a" id="a5" role="region" aria-labelledby="q5"><div><p>Email HR@trendlineaviation.com with a little about your program, and we'll set up a conversation.</p></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="contact" id="contact" aria-labelledby="contact-title">
+    <div class="wrap">
+      <div class="contact-card reveal">
+        <svg class="deco" viewBox="0 0 600 300" fill="none" aria-hidden="true"><path d="M0,40 L70,56 L130,42 L190,78 L250,70 L310,110 L370,100 L430,146 L490,138 L560,178 L600,184" stroke="#fff" stroke-width="2"/></svg>
+        <div style="position: relative">
+          <h2 id="contact-title">Let's talk about your reliability program.</h2>
+          <p>Tell us what your team needs to cover, and we'll talk through how Trendline can support it.</p>
+        </div>
+        <div class="contact-side">
+          <div class="email-row">
+            <a href="mailto:HR@trendlineaviation.com">HR@<wbr>trendlineaviation.com</a>
+            <button class="copy-btn" type="button" data-copy="HR@trendlineaviation.com" aria-label="Copy email address" title="Copy email"><svg class="i-copy" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg><svg class="i-check" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"/></svg></button>
+          </div>
+          <a class="btn btn-light" href="mailto:HR@trendlineaviation.com">Email us</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="wrap">
+    <a class="logo" href="#top" aria-label="Back to top">
+      <svg viewBox="0 0 1100 250" role="img" aria-label="Trendline Aviation">
+        <rect width="1100" height="250" rx="34" fill="#1E4FA3"/>
+        <text x="564" y="128" text-anchor="middle" font-family="Montserrat, 'Helvetica Neue', Arial, sans-serif" font-weight="600" font-size="96" letter-spacing="28" fill="#FFFFFF">TRENDLINE</text>
+        <polygon points="80,186 290,182 290,190" fill="url(#lnL)"/>
+        <polygon points="840,182 1020,186 840,190" fill="url(#lnR)"/>
+        <text x="566" y="205" text-anchor="middle" font-family="Montserrat, 'Helvetica Neue', Arial, sans-serif" font-weight="600" font-size="50" letter-spacing="30" fill="#FFFFFF" fill-opacity=".9">AVIATION</text>
+      </svg>
+    </a>
+    <nav class="footer-links" aria-label="Footer">
+      <a href="#services">Services</a>
+      <a href="#cass">CASS</a>
+      <a href="#faq">FAQ</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <small>© <span id="year">2026</span> Trendline Aviation LLC</small>
+    <p class="legal">Regulatory references are provided for general information only and are not legal or regulatory advice. Trendline Aviation is not affiliated with or endorsed by the FAA.</p>
+  </div>
+</footer>
+
+<div class="toast" role="status" aria-live="polite"></div>
+
+<canvas class="contrail" aria-hidden="true"></canvas>
+<div class="plane-cursor" aria-hidden="true">
+  <svg class="body" viewBox="-92 -80 190 160" fill="#1E4FA3" stroke="#FFFFFF" stroke-width="9" stroke-linejoin="round">
+    <path d="M-72,-7 L55,-7 Q82,-7 90,0 Q82,7 55,7 L-72,7 Q-80,0 -72,-7 Z M18,-6 L-26,-74 L-42,-74 L-14,-6 Z M18,6 L-26,74 L-42,74 L-14,6 Z M-52,-6 L-72,-30 L-84,-30 L-70,-6 Z M-52,6 L-72,30 L-84,30 L-70,6 Z" paint-order="stroke"/>
+  </svg>
+</div>
+
+<script>
+(function () {
+  var root = document.documentElement;
+  var header = document.querySelector('.header');
+  var progress = document.querySelector('.progress');
+  var menuBtn = document.querySelector('.menu-btn');
+  var nav = document.getElementById('nav');
+  var links = Array.prototype.slice.call(document.querySelectorAll('.nav-links a'));
+  var indicator = document.querySelector('.nav-indicator');
+  var sections = links.map(function (a) { return document.querySelector(a.getAttribute('href')); });
+  var steps = document.querySelector('.steps');
+  var stepItems = steps ? steps.querySelectorAll('.step') : [];
+  var lastY = window.scrollY, ticking = false;
+
+  /* Mobile menu */
+  function setMenu(open) {
+    root.classList.toggle('menu-open', open);
+    menuBtn.setAttribute('aria-expanded', String(open));
+    menuBtn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+    if (open) header.classList.remove('hidden');
+  }
+  menuBtn.addEventListener('click', function () { setMenu(!root.classList.contains('menu-open')); });
+  nav.addEventListener('click', function (e) { if (e.target.closest('a')) setMenu(false); });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') setMenu(false); });
+
+  /* Sliding nav indicator */
+  function moveIndicator(a) {
+    if (!a) { indicator.style.opacity = '0'; return; }
+    indicator.style.opacity = '1';
+    indicator.style.width = (a.offsetWidth - 28) + 'px';
+    indicator.style.transform = 'translateX(' + (a.offsetLeft + 14) + 'px)';
+  }
+
+  function update() {
+    var y = window.scrollY;
+    var max = document.documentElement.scrollHeight - window.innerHeight;
+    progress.style.transform = 'scaleX(' + (max > 0 ? y / max : 0) + ')';
+
+    header.classList.toggle('scrolled', y > 8);
+    if (!root.classList.contains('menu-open')) {
+      if (y > lastY && y > 420) header.classList.add('hidden');
+      else if (y < lastY - 4 || y < 420) header.classList.remove('hidden');
+    }
+    lastY = y;
+
+    var mark = y + window.innerHeight * 0.35, current = null;
+    sections.forEach(function (sec, i) { if (sec && sec.offsetTop <= mark) current = i; });
+    if (y + window.innerHeight >= document.documentElement.scrollHeight - 4) current = null;
+    links.forEach(function (a, i) { a.classList.toggle('active', i === current); });
+    moveIndicator(current === null ? null : links[current]);
+
+    if (steps) {
+      var r = steps.getBoundingClientRect();
+      var start = window.innerHeight * 0.85, end = window.innerHeight * 0.35;
+      var p = Math.min(1, Math.max(0, (start - r.top) / (start - end + r.height * 0.6)));
+      steps.style.setProperty('--p', p.toFixed(3));
+      stepItems.forEach(function (s, i) { s.classList.toggle('lit', p >= (i / (stepItems.length - 1)) * 0.98 || (i === 0 && p > 0.02)); });
+    }
+    ticking = false;
+  }
+  window.addEventListener('scroll', function () { if (!ticking) { requestAnimationFrame(update); ticking = true; } }, { passive: true });
+  window.addEventListener('resize', update);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(update);
+  update();
+
+  /* Scroll reveal */
+  var reveals = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) { if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); } });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    reveals.forEach(function (el) { io.observe(el); });
+  } else { reveals.forEach(function (el) { el.classList.add('in'); }); }
+
+  /* FAQ accordion */
+  document.querySelectorAll('.faq-q').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var item = btn.closest('.faq-item');
+      var open = !item.classList.contains('open');
+      document.querySelectorAll('.faq-item.open').forEach(function (other) {
+        if (other !== item) { other.classList.remove('open'); other.querySelector('.faq-q').setAttribute('aria-expanded', 'false'); }
+      });
+      item.classList.toggle('open', open);
+      btn.setAttribute('aria-expanded', String(open));
+    });
+  });
+
+  /* Copy email */
+  var toast = document.querySelector('.toast'), toastTimer;
+  function showToast(msg) {
+    toast.textContent = msg; toast.classList.add('show');
+    clearTimeout(toastTimer); toastTimer = setTimeout(function () { toast.classList.remove('show'); }, 2200);
+  }
+  document.querySelectorAll('.copy-btn').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var text = b.getAttribute('data-copy');
+      function ok() { showToast('Email copied'); b.classList.add('done'); setTimeout(function () { b.classList.remove('done'); }, 2000); }
+      function fallback() {
+        var t = document.createElement('textarea'); t.value = text; t.setAttribute('readonly', ''); t.style.position = 'fixed'; t.style.opacity = '0';
+        document.body.appendChild(t); t.select();
+        try { document.execCommand('copy') ? ok() : showToast(text); } catch (e) { showToast(text); }
+        document.body.removeChild(t);
+      }
+      if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(ok, fallback); else fallback();
+    });
+  });
+
+  /* Aircraft cursor: nose sits on the pointer, turns toward the direction of travel, leaves a fading contrail */
+  (function () {
+    var fine = window.matchMedia('(hover: hover) and (pointer: fine)');
+    var still = window.matchMedia('(prefers-reduced-motion: reduce)');
+    if (!fine.matches || still.matches) return;
+    root.classList.add('has-plane-cursor');
+    var plane = document.querySelector('.plane-cursor');
+    var canvas = document.querySelector('.contrail');
+    var ctx = canvas.getContext('2d');
+    var dpr = Math.min(window.devicePixelRatio || 1, 2);
+    var x = -100, y = -100, px = x, py = y, angle = -135, target = -135, lastMove = 0, trail = [];
+    function size() { canvas.width = innerWidth * dpr; canvas.height = innerHeight * dpr; canvas.style.width = innerWidth + 'px'; canvas.style.height = innerHeight + 'px'; ctx.setTransform(dpr, 0, 0, dpr, 0, 0); }
+    size(); window.addEventListener('resize', size);
+    window.addEventListener('mousemove', function (e) {
+      x = e.clientX; y = e.clientY; lastMove = performance.now();
+      var dx = x - px, dy = y - py;
+      if (dx * dx + dy * dy > 9) { target = Math.atan2(dy, dx) * 180 / Math.PI; px = x; py = y; }
+      trail.push({ x: x, y: y, t: lastMove });
+      plane.classList.add('visible');
+      plane.classList.toggle('over-link', !!(e.target.closest && e.target.closest('a, button')));
+    }, { passive: true });
+    document.addEventListener('mouseleave', function () { plane.classList.remove('visible'); trail = []; });
+    window.addEventListener('mousedown', function () { plane.classList.add('pressed'); });
+    window.addEventListener('mouseup', function () { plane.classList.remove('pressed'); });
+    function frame(now) {
+      if (now - lastMove > 700) target = -135;                 /* settle back to a classic cursor angle when idle */
+      var diff = ((target - angle + 540) % 360) - 180;
+      angle += diff * 0.18;
+      plane.style.transform = 'translate(' + x + 'px,' + y + 'px) rotate(' + angle + 'deg)';
+      while (trail.length && now - trail[0].t > 450) trail.shift();
+      ctx.clearRect(0, 0, innerWidth, innerHeight);
+      for (var i = 1; i < trail.length; i++) {
+        var a = trail[i - 1], b = trail[i], life = 1 - (now - b.t) / 450;
+        ctx.strokeStyle = 'rgba(30,79,163,' + (life * 0.35).toFixed(3) + ')';
+        ctx.lineWidth = 1.5; ctx.lineCap = 'round';
+        ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
+      }
+      requestAnimationFrame(frame);
+    }
+    requestAnimationFrame(frame);
+  })();
+
+  document.getElementById('year').textContent = new Date().getFullYear();
+})();
+</script>
+</body>
+</html>
