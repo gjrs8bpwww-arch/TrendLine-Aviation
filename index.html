@@ -7,9 +7,9 @@
 <title>Trendline Aviation | Reliability Analytics &amp; CASS Support</title>
 <meta name="description" content="Dedicated reliability analysts and CASS support for Part 121 and Part 135 operators.">
 <meta name="theme-color" content="#1E4FA3">
-<link rel="canonical" href="https://trendlineaviation.com/">
+<link rel="canonical" href="https://www.trendlineaviation.com/">
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://trendlineaviation.com/">
+<meta property="og:url" content="https://www.trendlineaviation.com/">
 <meta property="og:title" content="Trendline Aviation | Reliability Analytics &amp; CASS Support">
 <meta property="og:description" content="Dedicated reliability analysts and CASS support for Part 121 and Part 135 operators.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%231E4FA3'/%3E%3Cpath d='M18 20h28M32 20v24' stroke='%23fff' stroke-width='6'/%3E%3Cpath d='M16 52h32' stroke='%23fff' stroke-opacity='.7' stroke-width='2.5'/%3E%3C/svg%3E">
@@ -207,10 +207,10 @@
   .js .hero-inner > *:nth-child(2) { animation-delay: .12s; }
   .js .hero-inner > *:nth-child(3) { animation-delay: .24s; }
   @keyframes rise { to { opacity: 1; transform: none; } }
-  .js .hero-line .trace { stroke-dasharray: 1; stroke-dashoffset: 1; animation: draw 2.2s var(--ease) .5s forwards; }
+  .js .hero-line .trace { clip-path: inset(0 100% 0 0); -webkit-clip-path: inset(0 100% 0 0); animation: draw 2.2s var(--ease) .5s forwards; }
   .js .hero-line .area { opacity: 0; animation: fade 1.2s ease 1.6s forwards; }
   .js .hero-line .end { opacity: 0; animation: fade .6s ease 2.4s forwards; }
-  @keyframes draw { to { stroke-dashoffset: 0; } }
+  @keyframes draw { to { clip-path: inset(0 0 0 0); -webkit-clip-path: inset(0 0 0 0); } }
   @keyframes fade { to { opacity: 1; } }
   .logo .wing { transform-box: fill-box; }
   .logo .wing-l { transform-origin: right center; }
@@ -272,7 +272,7 @@
     html { scroll-behavior: auto; }
     *, *::before, *::after { animation-duration: .01ms !important; animation-delay: 0s !important; transition-duration: .01ms !important; transition-delay: 0s !important; }
     .js .reveal, .js .hero-inner > * { opacity: 1; transform: none; }
-    .js .hero-line .trace { stroke-dashoffset: 0; }
+    .js .hero-line .trace { clip-path: none; -webkit-clip-path: none; }
   }
   /* Aircraft cursor (mouse / trackpad only) */
   .plane-cursor, .contrail { display: none; }
@@ -339,7 +339,7 @@
       </defs>
       <path class="area" d="M0,40 L90,52 L160,38 L230,66 L300,58 L370,92 L440,84 L510,116 L580,108 L650,138 L720,132 L790,154 L860,150 L930,166 L1000,168 L1000,200 L0,200 Z"/>
       <line class="base" x1="0" y1="199.5" x2="1000" y2="199.5"/>
-      <path class="trace" pathLength="1" d="M0,40 L90,52 L160,38 L230,66 L300,58 L370,92 L440,84 L510,116 L580,108 L650,138 L720,132 L790,154 L860,150 L930,166 L1000,168"/>
+      <path class="trace" d="M0,40 L90,52 L160,38 L230,66 L300,58 L370,92 L440,84 L510,116 L580,108 L650,138 L720,132 L790,154 L860,150 L930,166 L1000,168"/>
     </svg>
   </section>
 
